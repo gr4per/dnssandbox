@@ -1,0 +1,19 @@
+{
+  "name": "dnssandbox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gr4per/dnssandbox.git"
+  },
+  "author": "gr4per",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gr4per/dnssandbox/issues"
+  },
+  "homepage": "https://github.com/gr4per/dnssandbox#readme"
+}

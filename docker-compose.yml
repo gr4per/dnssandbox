@@ -1,0 +1,46 @@
+version: '2'
+services:
+  ubuntu:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    volumes:
+      - .:/home/node/campaigns
+    labels:
+      - 'SERVICE_NAME=ubuntu'
+    ports:
+     - "3003:3003"
+    network_mode: bridge
+
+  boron:
+    build: .
+    depends_on:
+      - registrator
+    volumes:
+      - .:/home/node/campaigns
+    labels:
+      - 'SERVICE_NAME=boron'
+    ports:
+     - "3002:3002"
+    network_mode: bridge
+
+  consul:
+    command: -bootstrap -ui -recursor 8.8.8.8
+    image: gliderlabs/consul-server
+    network_mode: bridge
+    labels:
+     - 'SERVICE_NAME=consul'
+    ports:
+     - "8400:8400"
+     - "8500:8500"
+     - "53:8600/udp"
+     - "53:8600"
+
+  registrator:
+    image: gliderlabs/registrator
+    network_mode: host
+    command: consul://consul:8500
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock
+    depends_on:
+      - consul
